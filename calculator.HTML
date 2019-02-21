@@ -1,26 +1,23 @@
+<html>
 <head>
-<title>HTML Calculator</title>
+<title>Kids Who Code - Week 3: Operators - MCPL</title>
+<style>
+</style>
 </head>
-<body bgcolor= "#000000" text= "gold">
-<form name="calculator" >
-<input type="button" value="1" onClick="document.calculator.ans.value+='1'">
-<input type="button" value="2" onClick="document.calculator.ans.value+='2'">
-<input type="button" value="3" onClick="document.calculator.ans.value+='3'">
-<input type="button" value="4" onClick="document.calculator.ans.value+='4'">
-<input type="button" value="5" onClick="document.calculator.ans.value+='5'">
-<input type="button" value="6" onClick="document.calculator.ans.value+='6'">
-<input type="button" value="7" onClick="document.calculator.ans.value+='7'">
-<input type="button" value="8" onClick="document.calculator.ans.value+='8'">
-<input type="button" value="9" onClick="document.calculator.ans.value+='9'">
-<input type="button" value="-" onClick="document.calculator.ans.value+='-'">
-<input type="button" value="+" onClick="document.calculator.ans.value+='+'">
-<input type="button" value="*" onClick="document.calculator.ans.value+='*'">
-<input type="button" value="/" onClick="document.calculator.ans.value+='/'">
- 
-<input type="button" value="0" onClick="document.calculator.ans.value+='0'">
-<input type="reset" value="Reset">
-<input type="button" value="=" onClick="document.calculator.ans.value=eval(document.calculator.ans.value)">
-<br>Solution is <input type="textfield" name="ans" value="">
-</form>
+<body>
+<input type="text" id="inputA" value="" />
+<button id="plus" onclick="c.value=(1*a.value)+(1*b.value)">+</button>
+<button id="minus" onclick="c.value=a.value-b.value">-</button>
+<button id="multiply" onclick="c.value=a.value*b.value">*</button>
+<button id="divide" onclick="c.value=a.value/b.value">/</button>
+<input type="text" id="inputB" value="" />
+=
+<input type="text" id="inputC" value="" />
+<script>
+var a = document.getElementById('inputA');
+var b = document.getElementById('inputB');
+var c = document.getElementById('inputC');
+</script>
+
 </body>
 </html>
