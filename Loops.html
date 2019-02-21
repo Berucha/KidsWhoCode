@@ -1,0 +1,52 @@
+<html>
+<head>
+<title>Kids Who Code - Week 5: Loops - MCPL</title>
+<style>
+</style>
+<script>
+
+
+// for loop
+
+
+
+
+
+// while loop
+
+alert = confirm ("You are about to play a game against the infamous Nim! Here is how it's going to go: You want to be the person with the last ball. You are going ot pick how many balls the game will start with, it has to be greater than 15. You can only take 1-4 balls when it is your turn. Are you a worthy opponent?" )
+
+var balls = prompt("How many balls would you like to start with?");						
+
+while (balls < 15) { 																	// incase user does not do what you wanted
+	balls = prompt("Oops, you don't have enough balls to start the game! Please pick more than 15 balls. How many balls would you like to start with?");
+}
+
+while (balls > 0) {																		
+	var take = prompt("Your turn. How many balls would you like to take?");
+
+	while (take < 1 || take > 4) {
+		if (take < 1) {
+			take = prompt("Oops, you haven't taken enough balls. Please take 1-4 balls.");
+		}
+		else if (take > 4) {
+			take = prompt("Oops, you haven't taken too many balls. Please take 1-4 balls.");
+		}
+	}
+	
+	balls -= take;
+	Nim_take = balls % 5;
+	
+	alert("You have taken "
+	+take+
+	" balls. Nim takes "+Nim_take+" balls. There are "+balls+" balls left.");
+}
+
+if (balls == 0) {
+	alert = ("The end");
+}
+
+
+</script>
+</head>
+</html>

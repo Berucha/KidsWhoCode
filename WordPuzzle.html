@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Kids Who Code - Week 4: Arrays - MCPL</title>
+</head>
+
+<body>
+    <h1>Word Puzzle!</h1>
+    <script>
+        var choicesArray = [ // Creates an array of questions and answers for the game to choose from
+            Object({
+                question: "What language are you learning?",
+                answer: "javascript"
+            }),
+            Object({
+                question: "What is born green, becomes yellow as an adult, but turns brown when old?",
+                answer: "bananas"
+            }),
+            Object({
+                question: "What did Ms.Berucha say to the class?",
+                answer: "coding is fun"
+            }),
+            Object({
+                question: "How do cellphones communicate with each other?",
+                answer: "automagically"
+            }),
+            Object({
+                question: "Who are we?",
+                answer: "kids who code"
+            }),
+            Object({
+                question: "What falls in winter but never gets hurt?",
+                answer: "snow"
+            }),
+            Object({
+                question: "What animal is always at a baseball game?",
+                answer: "bat"
+            }),
+            Object({
+                question: "What kind of tree fits in your hand?",
+                answer: "palm tree"
+            }),
+            Object({
+                question: "What do you get when you cross a vampire and a snowman?",
+                answer: "frost bite"
+            }),
+            Object({
+                question: "What do you call a dinosaur that is sleeping?",
+                answer: "dinosnore"
+            })
+            //Object({
+            //  question:"What is s super long word that means extraordinarily good or wonderful?",
+            //  answer:"supercalifragilisticexpialidocious"}),
+            //TRY CREATING YOUR OWN USING THE SAME FORMATTING AS ABOVE
+
+        ];
+
+        // Picks a random word
+        var word = choicesArray[Math.floor(Math.random() * choicesArray.length)];
+        //        var word = choicesArray[8];  //testing purposes
+
+
+        var answerArray = []; // Sets up the array for the user's answer
+        var guesses = [];
+        for (var i = 0; i < word.answer.length; i++) { // loop creates the same number of spaces for the user's answer as there are for the actual word
+            if (word.answer[i] == " ") {
+                answerArray[i] = " "; // puts in the spaces between the words 
+            } else {
+                answerArray[i] = "_";
+            }
+
+        }
+
+        var remainingLetters = word.answer.length;
+        var gotletter; // if the user got entered in the right letter
+        var incorrect = 0; // counts how many incorrect guesses the user has
+
+        // The game loop
+        while (remainingLetters > 0) { // while there are still letters to be discovered
+
+            alert(answerArray.join(" ")); // Shows the player their progress
+            var guess = prompt(word.question + "\nGuess a letter, or click Cancel to stop playing."); // Gets a guess from the player
+            if (guess === null) { // checks if user hit cancel
+                break; // Exits the game loop
+            } else if (guesses.includes(guess)) { // checks if the user already guessed the letter
+                alert("You already have that letter. Try a different one.");
+            } else if (guess.length !== 1) { // makes sure user only guesses one letter at a time
+                alert("Please enter a single letter.");
+            } else { // if there are no issues, continue on with the game
+                gotletter = false; // resets gotletter to false everytime loop runs
+                for (var j = 0; j < word.answer.length; j++) { // Updates the game state with the guess
+                    if (word.answer[j] === guess) {
+                        answerArray[j] = guess;
+                        guesses.push(guess[0])
+                        remainingLetters--;
+                        gotletter = true;
+                    }
+                }
+                if (gotletter == false) { // guessed wrong letter
+                    incorrect++;
+                    if (incorrect == word.answer.length) { // you get the same number of chances as there are letters in the word
+                        break;
+                    }
+                }
+            }
+        }
+        // The end of the game loop
+
+
+        // Show the answer and congratulate the player
+
+        if (incorrect == word.answer.length) {
+            alert("Oh no! You have ran out of guesses! Better luck next time!");
+        } else {
+            alert(answerArray.join(" "));
+            alert("Good job! You're a genius! The answer was " + word.answer);
+        }
+
+        // BUGS:
+        //      -it needs to let you know when you already picked a letter even if it was wrong, put already used letters in an array
+        //      -it tells you good job even when you hit cancel and haven't answered the question
+        //        
+        //      
+        //
+
+    </script>
+</body>
+
+</html>
