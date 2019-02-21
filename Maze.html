@@ -1,0 +1,122 @@
+<html>
+<head>
+<title>Kids Who Code - Week 5: For loops - MCPL</title>
+<style>
+body {
+	font-family:"Lucida Console", Monaco, monospace;
+	background-color:#000;
+	color:#5f5;
+	}
+button{border: solid #f55 2px;background-color:#000;color:#5f5;margin:5px;}
+button:focus{outline:none;}
+button:hover{background-color:#5f5;color:#000;}
+.x{color:#f55;}
+.o{color:#ff5;}
+</style>
+</head>
+<body>
+	<center>
+		<div id="wrapper" style="float:left;">
+			<h2>Maze Explore!</h2>
+			Scores:<span id="score" class="x"></span>
+			<div id="maze"></div>
+			Collect <span class="o">rings</span>! Get <span class="x">scores</span>!
+			<br>
+			<button onclick="if(data.slice((playerY*cols)+playerX-1,(playerY*cols)+playerX)==' ')playerX = playerX-1;drawMap();"><</button>
+			<button onclick="if(data.slice(((playerY-1)*cols)+playerX,((playerY-1)*cols)+playerX+1)==' ')playerY = playerY-1;drawMap();">/\</button>
+			<button onclick="if(data.slice(((playerY+1)*cols)+playerX,((playerY+1)*cols)+playerX+1)==' ')playerY = playerY+1;drawMap();">\/</button>
+			<button onclick="if(data.slice((playerY*cols)+playerX+1,(playerY*cols)+playerX+2)==' ')playerX = playerX+1; drawMap();">></button>
+			<br>
+			<span class="x">NOTE:</span>Use the buttons above, <br>or the arrow keys on your <br>keyboard to move around.<br>
+		</div>
+	</center>
+</body>
+<script>
+//IMPORTANT!! Do NOT change the value of the 'data' variable!  It is the map data!
+var data="+---------+--------+|         |        |+-------+ | +-+--- ||   |   | | | |    || | | |   | |    | || +-+ ++--+ +-+--+ ||      |      |    || -----+ -+---+ ---+|         |        |+---------+--------+";
+
+var rows = 10;													//The number of rows (x coordinates) that the map has.
+var cols = 20;													//The number of rows (y coordinates) that the map has.
+var playerX = 10;												//The x coordinate for the player.
+var playerY = 6;												//The y coordinate for the player.
+var coinX = 10;													//The x coordinate for the coin.
+var coinY = 6;													//The y coordinate for the coin.
+var score = -1;													//The score.
+var maze = document.getElementById("maze");						//A pointer for the 'maze' element.
+//This draws the map.
+function drawMap()
+{
+	getCoin();
+	maze.innerHTML="";								//Clear the maze element
+
+	for(var i=0;i<rows;i++){						//Start loop for rows.
+
+		for(var j=0;j<cols;j++){						//Start loop for columns.
+
+			start = (i*cols)+j;								//Calculate which data to display next.
+
+			end = start+1;									//Data size is one (1) byte.
+
+			tile = data.slice(start,end);					//Store data into the 'tile' variable.
+
+			if(playerX==j&&playerY==i)						//If player coordinates equal the data coordinates...
+
+				maze.innerHTML+="<span class='x'>X</span>";		//Then draw the player 'X' on the map
+
+			else if(coinX==j&&coinY==i)						//If coin coordinates equal the data coordinates...
+
+				maze.innerHTML+="<span class='o'>O</span>";		//Then draw the coin 'O' on the map
+
+			else											//Else
+
+				if(tile==" ")									//If 'tile' equals ' ' (empty space)
+
+					maze.innerHTML+="&nbsp;";						//Draw an empty space.
+
+				else											//Else
+
+					maze.innerHTML+=tile;							//Draw the character from the map data.
+
+		}												//End loop for columns.
+
+		maze.innerHTML+="<br>";							//Add a <br> (line break) tag so the next row of data is displayed on the next line.
+
+	}												//End loop for rows.
+
+}
+function getCoin(){
+	if(playerX==coinX&&playerY==coinY){
+		score++;
+		coinX=coinY=0;
+		while(data.slice((coinY*cols)+coinX,(coinY*cols)+coinX+1)!=' '){
+			coinX=Math.round(Math.random()*20);
+			coinY=Math.round(Math.random()*10);
+		}
+	}
+	document.getElementById("score").innerHTML=score;
+}
+function getKey(e){
+	switch(e.keyCode){
+		case 37://left
+			if(data.slice((playerY*cols)+playerX-1,(playerY*cols)+playerX)==' ')playerX = playerX-1;
+			break;
+		case 38://up
+			if(data.slice(((playerY-1)*cols)+playerX,((playerY-1)*cols)+playerX+1)==' ')playerY = playerY-1;
+			break;
+		case 39://right
+			if(data.slice((playerY*cols)+playerX+1,(playerY*cols)+playerX+2)==' ')playerX = playerX+1;
+			break;
+		case 40://down
+			if(data.slice(((playerY+1)*cols)+playerX,((playerY+1)*cols)+playerX+1)==' ')playerY = playerY+1;
+			break;
+		default:
+			break;
+	}
+	drawMap();
+}
+drawMap();
+document.addEventListener("keydown", getKey);
+document.getElementById("wrapper").style.transformOrigin="left top";
+document.getElementById("wrapper").style.transform="scale("+window.innerWidth/document.getElementById("wrapper").offsetWidth*0.95+","+window.innerHeight/document.getElementById("wrapper").offsetHeight*0.95+")";
+</script>
+</html>
