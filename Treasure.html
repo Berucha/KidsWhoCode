@@ -1,0 +1,59 @@
+<html>
+<head>
+<title>MCPL Kids Who Code - Week 7: Functions - Treasure</title>
+<script>
+var width,height,clicks,tx,ty;								// Define global variables
+															// 
+function init()												// Initialization function
+{															// 
+	clicks = 0;												// 		Set clicks to 0.
+	width = $("map").offsetWidth;							// 		Set width to the width of the map.
+	height = $("map").offsetHeight;							// 		Set height to the height of the map.
+	tx = Math.floor(Math.random() * width);					// 		Set tx to a random value between 0 and width.
+	ty = Math.floor(Math.random() * height);				// 		Set ty to a random value between 0 and height.
+}															// 
+															// 
+function distance(event)									// Distance function
+{															// 
+	var x = event.offsetX - tx;								// 		Set x to the difference between tx and event.offsetX.
+	var y = event.offsetY - ty;								// 		Set y to the difference between ty and event.offsetY.
+	return Math.sqrt((x * x) + (y * y));					// 		return the distance between the two points.
+}															// 
+															// 
+function hint(d)											// Hint function
+{															// 
+	if (d < 10) {											// 		If d < 10 then
+		return "Boiling hot!";								// 			return "Boiling Hot!"
+	} else if (d < 20) {									// 		Else if d < 20 then
+		return "Really hot";								// 			return "Really Hot"			
+	} else if (d < 40) {									// 		Else if d < 20 then
+		return "Hot";										// 			return "Hot"
+	} else if (d < 80) {									// 		Else if d < 20 then
+		return "Warm";										// 			return "Warm"
+	} else if (d < 160) {									// 		Else if d < 20 then
+		return "Cold";										// 			return "Cold"
+	} else if (d < 320) {									// 		Else if d < 20 then
+		return "Really cold";								// 			return "Really Cold!"
+	} else {												// 		Else
+		return "Freezing!";									// 			return "Frezzing!"
+	}														// 
+}															// 
+															// 
+function dig(event)											// Dig function
+{															// 
+	clicks++;												// 		Increment the clicks variable.
+	$("info").innerHTML = hint(distance(event));			// 		Display hint on the page.
+	if (distance(event) < 8) {								// 		If the distance is less than 8 then
+		alert("You found it in " + clicks + " clicks!");	// 			Tell the user they won!
+	}														// 
+}															// 
+															// 
+function $(val){return document.getElementById(val);}		// $ function (shorthand for document.getElementById)
+</script>
+</head>
+<body onload="init();">
+    <h1 id="heading">Find the buried treasure!</h1>
+    <img id="map" width="400" height="400" onclick="dig(event);" src="http://nostarch.com/images/treasuremap.png">
+    <p id="info"></p>
+</body>
+</html>
